@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crud_operation/modules/features/home/view/data_model.dart';
 import 'package:flutter/material.dart';
 
 // import '../view/data_model.dart';
@@ -24,17 +25,20 @@ class CreateData extends ChangeNotifier {
   }
 
   //read
-  List<dynamic> newDataList = [];
-  fetchData() {
-    FirebaseFirestore.instance
-        .collection("MyStudents")
-        .snapshots()
-        .listen((event) {
-      for (var data in event.docs) {
-        newDataList.add(data);
-      }
-    });
+  List<ReadData> newDataList = [];
+  Future<List<ReadData>> fetchData() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection("MyStudents").get();
+    newDataList.clear();
+    for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+      final data = documentSnapshot.data() as Map<String, dynamic>;
+      final newData = ReadData.fromJson(data);
+      newDataList.add(newData);
+    }
+    notifyListeners();
+    return newDataList;
   }
+  //
 
   //delete
   deleteDate(String? sid) {
