@@ -1,8 +1,10 @@
 import 'package:crud_operation/app/routes/routes_constant.dart';
+import 'package:crud_operation/modules/features/home/view_model/detailspage_viewmodel.dart';
 import 'package:crud_operation/modules/features/home/view_model/updatepage_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../modules/features/home/view/details_view.dart';
 import '../../modules/features/home/view/homepage_view.dart';
 import '../../modules/features/home/view/update_view.dart';
 import '../../modules/features/home/view_model/homepage_viewmodel.dart';
@@ -21,6 +23,18 @@ class AppRoutesConfiure {
             child: const MyApp(),
           ),
         );
+      case AppRoutesConstant.detailsPage:
+        return MaterialPageRoute(
+          builder: (context) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (create) => Detailspage(),
+              ),
+            ],
+            child: const MyFlutterColleaguesDetail(),
+          ),
+        );
+
       case AppRoutesConstant.updatePage:
         final arg = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(

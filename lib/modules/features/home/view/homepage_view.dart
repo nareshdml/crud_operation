@@ -3,8 +3,6 @@ import 'package:crud_operation/modules/features/home/view_model/homepage_viewmod
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../app/constant/constant.dart';
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -130,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                     studentGpaController.clear();
                     studyProgramIdController.clear();
                   },
-                  child: const Text("Create"),
+                  child: const Text("Register Student"),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -142,122 +140,17 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ),
                   ),
-                  onPressed: () async {
-                    await providerCreateData.fetchData();
+                  onPressed: () {
+                    // await providerCreateData.fetchData();
+                    Navigator.pushNamed(context, AppRoutesConstant.detailsPage);
                   },
-                  child: const Text("Read"),
+                  child: const Text("Student List"),
                 ),
               ],
             ),
             const SizedBox(
               height: 10,
             ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: providerCreateData.newDataList.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Student Name: ${providerCreateData.newDataList[index].studentName}",
-                                style: textBold,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Student ID: ${providerCreateData.newDataList[index].studentId}",
-                                style: textBold,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Study Program ID: ${providerCreateData.newDataList[index].studyProgramId}",
-                                style: textBold,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Student GPA: ${providerCreateData.newDataList[index].studentGpa}",
-                                style: textBold,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.all(16),
-                                      backgroundColor: Colors.orange,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadiusDirectional.circular(
-                                          16,
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, AppRoutesConstant.updatePage,
-                                          arguments: {
-                                            'sid': providerCreateData
-                                                .newDataList[index].sid,
-                                            'studentName': providerCreateData
-                                                .newDataList[index].studentName,
-                                            'studentId': providerCreateData
-                                                .newDataList[index].studentId,
-                                            'studyProgramId': providerCreateData
-                                                .newDataList[index]
-                                                .studyProgramId,
-                                            'studentGpa': providerCreateData
-                                                .newDataList[index].studentGpa,
-                                          });
-                                    },
-                                    child: const Text("Edit"),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red,
-                                      padding: const EdgeInsets.all(16),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadiusDirectional.circular(
-                                          16,
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () async {
-                                      await providerCreateData.deleteDate(
-                                          providerCreateData
-                                              .newDataList[index].sid);
-                                    },
-                                    child: const Text("Delete"),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            )
           ],
         ),
       ),

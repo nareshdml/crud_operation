@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crud_operation/modules/features/home/view/data_model.dart';
-import 'package:flutter/material.dart';
 
-// import '../view/data_model.dart';
+import 'package:flutter/material.dart';
 
 class CreateData extends ChangeNotifier {
   createData(String studentNames, String studentID, String studyProgramID,
@@ -25,27 +24,27 @@ class CreateData extends ChangeNotifier {
   }
 
   //read
-  List<ReadData> newDataList = [];
-  Future<List<ReadData>> fetchData() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection("MyStudents").get();
-    newDataList.clear();
-    for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-      final data = documentSnapshot.data() as Map<String, dynamic>;
-      final newData = ReadData.fromJson(data);
-      newDataList.add(newData);
-    }
-    notifyListeners();
-    return newDataList;
-  }
+  // List<ReadData> newDataList = [];
+  // Future<List<ReadData>> fetchData() async {
+  //   QuerySnapshot querySnapshot =
+  //       await FirebaseFirestore.instance.collection("MyStudents").get();
+  //   newDataList.clear();
+  //   for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+  //     final data = documentSnapshot.data() as Map<String, dynamic>;
+  //     final newData = ReadData.fromJson(data);
+  //     newDataList.add(newData);
+  //   }
+  //   notifyListeners();
+  //   return newDataList;
+  // }
   //
 
   //delete
-  deleteDate(String? sid) {
-    DocumentReference deleteDocumentReference =
-        FirebaseFirestore.instance.collection("MyStudents").doc(sid);
-    deleteDocumentReference.delete().whenComplete(
-          () => (),
-        );
-  }
+  // deleteDate(String? sid) {
+  //   DocumentReference deleteDocumentReference =
+  //       FirebaseFirestore.instance.collection("MyStudents").doc(sid);
+  //   deleteDocumentReference.delete().whenComplete(
+  //         () => (),
+  //       );
+  // }
 }
